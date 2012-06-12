@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LevenBlogSkin>
+  <Designer>Leven</Designer>
+  <Name>LevenBlog默认模板</Name>
+  <Url>http://blog.leven.com.cn/</Url>
+  <Image>skin.jpg</Image>
+  <Mail>levenc@163.com</Mail>
+  <PublicDate>2008-08-08</PublicDate>
+</LevenBlogSkin>

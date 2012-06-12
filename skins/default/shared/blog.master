@@ -1,0 +1,63 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage, System.Web.Mvc" %>
+<%@ Register Src="../blog/calendar.ascx" TagName="Calendar" TagPrefix="LevenBlog" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%
+    //获取head和全局数据
+    string skinpath = ViewData["skinpath"] as string;
+    lb_state state= ViewData["state"] as lb_state;
+    lb_config config = ViewData["config"] as lb_config;
+%>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+<title><%=ViewData["title"] %></title>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<asp:ContentPlaceHolder ID="BlogMetaHead" runat="server">
+<%lb_config config = ViewData["config"] as lb_config; %>
+<meta name="keywords" content="<%=config.keywords %>" />
+<meta name="description" content="<%=config.description %>" />
+</asp:ContentPlaceHolder>
+<meta name="generator" content="<%=Fetch.Name %><%=Fetch.Version.ToString() %>" />
+<meta name="author" content="<%=Fetch.Author %>" />
+<meta name="copyright" content="<%=Fetch.Copyright %>" />
+<link href="<%=Url.Content("~/" + ViewData["skinpath"] + "images/style.css") %>" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="<%=Url.RouteUrl( new { controller = "blog", action = "rss", category = "0", page = "1" } ) %>" />
+<link rel="alternate" type="text/xml" title="RSS .92" href="<%=Url.RouteUrl( new { controller = "blog", action = "rss", category = "0", page = "1" } ) %>" />
+<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="<%=Url.RouteUrl( new { controller = "blog", action = "atom", category = "0", page = "1" } ) %>" />
+<link rel="pingback" href="<%=Url.RouteUrl( new { controller = "blog", action = "xmlrpc" } ) %>" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="<%=Url.RouteUrl( new { controller = "blog", action = "rsd" } ) %>" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="<%=Url.RouteUrl( new { controller = "blog", action = "wlwmanifest" } ) %>" /> 
+<link href="<%=Url.Content("~/ckeditor/plugins/syntaxhighlight/styles/shCore.css") %>" rel="stylesheet" type="text/css" />
+<link href="<%=Url.Content("~/ckeditor/plugins/syntaxhighlight/styles/shThemeDefault.css") %>" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<%=Url.Content("~/ckeditor/plugins/syntaxhighlight/scripts/shCore.js") %>"></script>
+<script type="text/javascript" src="<%=Url.Content("~/ckeditor/plugins/syntaxhighlight/scripts/highlight.js") %>"></script>
+<script type="text/javascript" src="<%=Url.Action("js", new { controller = "blog", path = "jquery.js" }) %>"></script>
+<script type="text/javascript" src="<%=Url.Action("js", new { controller = "blog" }) %>"></script>
+<meta name="generator" content="LevenBlog 2.0" />
+<asp:ContentPlaceHolder ID="BlogHead" runat="server"></asp:ContentPlaceHolder>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initJS();
+        SyntaxHighlighter.config.clipboardSwf = '<%=Url.Content("~/ckeditor/plugins/syntaxhighlight/scripts/clipboard.swf") %>';
+        SyntaxHighlighter.all();
+    });
+</script>
+</head>
+<body>
+
+<div id="PageContainer">
+<%Html.RenderPartial("head"); %>
+
+<!-- 主体部分 -->
+<div id="blog_body">
+    
+<asp:ContentPlaceHolder ID="BlogContent" runat="server"></asp:ContentPlaceHolder>
+
+<asp:ContentPlaceHolder ID="BlogSider" runat="server"></asp:ContentPlaceHolder>
+
+</div>
+
+<%Html.RenderPartial("foot"); %>
+</div>
+</body>
+</html>
